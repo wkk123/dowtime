@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>剩余时间</title>
+</head>
+<style>
+	.style{
+		width: 500px;
+		height: 200px;
+		background: #ccc;
+		margin: 0 auto;
+		text-align: center;
+		line-height: 200px;
+
+	}
+	.jindu-box{width: 300px;height:30px;position: absolute;margin:0 auto;margin-left:-150px;left:50%;background:red;}
+	.jindu{height:100%;background:yellow;float:left;}
+	span{
+		font-size: 30px;
+		color: red;
+	}
+</style>
+<body>
+	<div class="style">
+	    剩余时间
+	    <span style="display:none"> </span><span> </span>日<span> </span>小时<span> </span>分<span> </span>秒。
+	</div>
+	<div class="jindu-box">
+		<div class="jindu"></div>
+	</div>
+</body>
+<script src="jquery-1.11.3.js"></script>
+<script>
+   $(function(){
+       function getTime(){
+   	   var now=new Date()
+       var target=new Date()
+       var arr=[];
+       target.setMonth(9);  
+       target.setDate(16);   
+       target.setHours(20);     
+       target.setMinutes(30);
+       target.setSeconds(00);
+       var cha=(target.getTime()-now.getTime())/1000;
+       var jindu= $(".jindu-box").width()*cha/900;  // 时间差/总的时间差值
+       $(".jindu").css({width:jindu});
+	   var Month=Math.floor(cha/(60*60*24*30));
+	   arr.push(Month);
+	   cha=cha%(60*60*24*30);
+	   var date=Math.floor(cha/(60*60*24));
+	   arr.push(date);
+	   cha=cha%(60*60*24);   
+	   var hours=Math.floor(cha/(60*60));
+	   arr.push(hours);
+	   cha=cha%(60*60);
+	   var minutes=Math.floor(cha/60);
+	   console.log(minutes)
+	   arr.push(minutes);
+	   var second=cha%60;
+	   arr.push(second);
+	   return arr;
+
+    }
+     var spans=document.getElementsByTagName('span');
+     var array=getTime();
+     for (var i = 0; i < spans.length; i++) {
+            spans[i].innerHTML=array[i]
+      }
+      var t=setInterval(function(){
+      		var array=getTime();
+         for (var i = 0; i < spans.length; i++) {
+               spans[i].innerHTML=array[i];  
+             } 
+      	},1000)
+
+      
+   })
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- .controller('homeCtrl',function($scope,$http,$location){
+	$scope.active='home';
+	$http.get("json/goods.json").success(function(data) {
+		$scope.data=[];
+		$scope.data.goods=data.goods;
+		for(var i=0;i<$scope.data.goods.length;i++){
+			$scope.data.goods[i].startTime;
+			$scope.data.goods[i].endTime;
+			
+			 var cha=($scope.data.goods[i].endTime-$scope.data.goods[i].startTime)/1000;
+		       var jindu= $(".jindu-box").width()*cha/130000;
+		       $(".jindu").css({width:jindu});
+			   var hours=Math.floor(cha/(60*60));
+			   arr.push(hours);
+			   cha=cha%(60*60);
+			   var minutes=Math.floor(cha/60);
+			   arr.push(minutes);
+			   var second=cha%60;
+			   arr.push(second);
+			
+			$scope.data.goods[i].daojishi=arr;
+		}
+	});
+	$scope.noStep = true;
+}) -->

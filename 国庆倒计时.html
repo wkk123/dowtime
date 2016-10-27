@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>倒计时</title>
+</head>
+<style>
+	.style{
+		width: 500px;
+		height: 200px;
+		background: #ccc;
+		margin: 0 auto;
+		text-align: center;
+		line-height: 200px;
+
+	}
+	span{
+		font-size: 30px;
+		color: red;
+	}
+</style>
+<body>
+	<div class="style">
+	    时间
+	    <span> </span>月<span> </span>日<span> </span>小时<span> </span>分<span> </span>秒。
+	</div>
+</body>
+<script src="jquery-1.11.3.js"></script>
+<script>
+   $(function(){
+   	function getTime(){
+   	var now=new Date()
+    var gq=new Date()
+    var arr=[];
+    gq.setMonth(9);
+    gq.setDate(1);
+    gq.setHours(0);
+    gq.setMinutes(0);
+    gq.setSeconds(0);
+       var cha=(gq.getTime()-now.getTime())/1000;
+	   var Month=Math.floor(cha/(60*60*24*30));
+	   arr.push(Month);
+	   cha=cha%(60*60*24*30);
+	   var date=Math.floor(cha/(60*60*24));
+	   arr.push(date);
+	   cha=cha%(60*60*24);   
+	   var hours=Math.floor(cha/(60*60));
+	   arr.push(hours);
+	   cha=cha%(60*60);
+	   var minutes=Math.floor(cha/60);
+	   arr.push(minutes);
+	   var second=cha%60;
+	   arr.push(second);
+	   return arr;
+    }
+     var spans=document.getElementsByTagName('span');
+     var array=getTime();
+     for (var i = 0; i < spans.length; i++) {
+            spans[i].innerHTML=array[i]
+      }
+      var t=setInterval(function(){
+      		var array=getTime();
+         for (var i = 0; i < spans.length; i++) {
+            spans[i].innerHTML=array[i];  
+      } 
+      	},1000)
+   })
+</script>
+</html>
